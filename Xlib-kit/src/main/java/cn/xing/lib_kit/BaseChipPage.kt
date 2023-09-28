@@ -16,6 +16,9 @@ abstract class BaseChipPage  : Fragment() {
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
+    abstract fun onRegisterScenes()
+    abstract fun onUnRegisterScenes()
+
     abstract fun onSceneCreate()
     abstract fun onSceneResume()
     abstract fun onAttachPageScopeX()

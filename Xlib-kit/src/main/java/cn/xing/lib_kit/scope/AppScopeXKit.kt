@@ -3,10 +3,14 @@ package cn.xing.lib_kit.scope
 import android.content.Context
 import android.os.Bundle
 import androidx.lifecycle.MutableLiveData
+import cn.xing.xlib_account.AccountUser
+import cn.xing.xlib_account.AccountXLib
 
-class AppScopeXKit {
+abstract class AppScopeXKit {
 
     private var appContext: Context? = null
+
+    private var accountXlib = AccountXLib()
 
     private var curPageScope: PageScopeXKit? = null
     private var lastPageScope: PageScopeXKit? = null
@@ -23,7 +27,9 @@ class AppScopeXKit {
 
     fun setCurPageScope(pageScope: PageScopeXKit) {
         lastPageScope = curPageScope
+        curPageScope?.deactiveAppScope()
         this.curPageScope = pageScope
+        curPageScope?.activeAppScope(this)
     }
 
     fun getCurPageScope(): PageScopeXKit? {
@@ -42,9 +48,16 @@ class AppScopeXKit {
         appScopeInfoPip.value = targetInfo
     }
 
+    fun updateAccountInfo() {
+
+    }
+
+    abstract fun accountInfo()
+
     class AppInfoPipSignal {
         companion object {
-//            val app_page_change = 1000001
+            val app_account_login = 1000001
+            val app_account_logout = 1000001
         }
     }
 }
